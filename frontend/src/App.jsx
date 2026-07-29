@@ -27,7 +27,7 @@ export default function App() {
   const [showAccountModal, setShowAccountModal] = useState(false);
   const [userInfo, setUserInfo] = useState(() => (token ? parseJwt(token) || {} : null));
   const [ingestionComplete, setIngestionComplete] = useState(false);
-  const isVerifyEmailRoute = window.location.pathname === '/verify-email';
+  const isVerifyEmailRoute = window.location.pathname.startsWith('/verify-email');
 
   const handleLogout = useCallback(() => {
     removeStoredToken();
@@ -153,7 +153,14 @@ export default function App() {
   };
 
   if (isVerifyEmailRoute) {
-    return <VerifyEmailPage />;
+    return (
+      <VerifyEmailPage 
+        onGoToLogin={() => {
+          window.history.pushState({}, '', '/');
+          window.location.reload();
+        }} 
+      />
+    );
   }
 
   if (!token) {
