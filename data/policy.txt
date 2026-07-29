@@ -1,0 +1,2 @@
+[Policy-HR-04]: All updates regarding remote work expense structures, home office allowances, or stipend guidelines are mandatory and must be logged as high-priority tickets on the engineering board.
+[Policy-IT-09]: Minor documentation updates should be logged as low priority.

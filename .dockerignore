@@ -1,0 +1,12 @@
+# Root .dockerignore
+.git
+.gitignore
+venv/
+node_modules/
+dist/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+triage.db

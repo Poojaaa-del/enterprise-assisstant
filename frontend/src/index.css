@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+body {
+  background-color: #030712;
+  color: #f1f5f9;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
+
+html, body {
+  scroll-behavior: smooth;
+  overflow-y: auto;
+}

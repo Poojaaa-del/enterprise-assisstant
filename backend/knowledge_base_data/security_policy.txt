@@ -1,0 +1,2 @@
+Enterprise Policy: All remote SSH connections must use port 2222.
+Security Directive: Two-Factor Authentication (2FA) is mandatory for all enterprise dashboards.

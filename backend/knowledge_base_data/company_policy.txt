@@ -1,0 +1,2 @@
+COMPANY POLICY SEC-4001: 
+All production environment variables containing high-security parameters, keys, or passwords must be stored within protected Vault nodes. Under no circumstances should AWS_SECRET_ACCESS_KEY strings be exposed to public logging structures. Any occurrence constitutes an absolute CRITICAL breach requiring immediate isolation.

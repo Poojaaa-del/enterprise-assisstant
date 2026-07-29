@@ -1,0 +1,82 @@
+# version: '3.8'
+
+services:
+  # 1. PostgreSQL Database Service
+  postgres:
+    image: postgres:15-alpine
+    container_name: logtriage_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-triage_db}
+      POSTGRES_USER: ${POSTGRES_USER:-triage_admin}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-secure_triage_password_2026}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-triage_admin} -d ${POSTGRES_DB:-triage_db}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # 2. ChromaDB Vector Store Service
+  chromadb:
+    image: chromadb/chroma:0.5.0
+    container_name: logtriage_chromadb
+    restart: unless-stopped
+    ports:
+      - "8001:8000"
+    environment:
+      - IS_PERSISTENT=TRUE
+      - ANONYMIZED_TELEMETRY=FALSE
+    volumes:
+      - chroma_data:/chroma/chroma
+
+  # 3. FastAPI Core Backend Service
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: logtriage_backend
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-triage_admin}:${POSTGRES_PASSWORD:-secure_triage_password_2026}@postgres:5432/${POSTGRES_DB:-triage_db}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY:-guardcore-super-secret-key-change-me}
+      - GROQ_API_KEY=${GROQ_API_KEY}
+      #- GEMINI_API_KEY=${GEMINI_API_KEY}
+      - JIRA_DOMAIN=${JIRA_DOMAIN}
+      - JIRA_EMAIL=${JIRA_EMAIL}
+      - JIRA_API_TOKEN=${JIRA_API_TOKEN}
+      - JIRA_PROJECT_KEY=${JIRA_PROJECT_KEY:-SCRUM}
+      - SLACK_WEBHOOK_URL=${SLACK_WEBHOOK_URL}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      chromadb:
+        condition: service_started
+    volumes:
+      - ./backend:/app
+      - sqlite_data:/app/data
+
+  # 4. React Frontend & Nginx Proxy Service
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: logtriage_frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
+  chroma_data:
+  sqlite_data:

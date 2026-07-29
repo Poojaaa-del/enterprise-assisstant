@@ -1,0 +1,7 @@
+[EMKA-SOP-804] DATABASE FAILOVER PROTOCOL
+Primary DB Cluster: PostgreSQL Node DB-PROD-01 (10.0.4.12)
+Secondary DB Cluster: PostgreSQL Node DB-PROD-02 (10.0.4.13)
+
+Emergency Escalation Trigger:
+If connection latency exceeds 500ms or unauthorized access attempts exceed 3 consecutive hits on DB-PROD-01, trigger immediate mandatory escalation and lock active session keys.
+Contact: Lead Systems Engineer (devops-oncall@company.internal)

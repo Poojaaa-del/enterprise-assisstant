@@ -1,0 +1,1 @@
+Security Rule: External contractors must use VPN Gate 4A for server access.

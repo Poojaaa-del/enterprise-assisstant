@@ -1,0 +1,2 @@
+Enterprise Network Protocol EN-2222: Remote Management Boundaries.
+All internal and production server remote SSH connections must be routed exclusively through port 2222. Standard port 22 is disabled across the entire corporate network topology to mitigate automated brute-force attacks and prevent unauthorized lateral movements. Any connection attempt detected on port 22 is flagged automatically as an intrusion event.

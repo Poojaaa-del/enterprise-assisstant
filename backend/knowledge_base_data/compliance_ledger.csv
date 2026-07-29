@@ -1,0 +1,5 @@
+log_id,timestamp,node_identifier,infraction_level,file_content,expected_pipeline_action
+ID-701,2026-07-18T14:10:00Z,DB-CLUSTER-01,LOW_PRIORITY,Routine credential rotation completed successfully without ledger anomalies.,BYPASS
+ID-702,2026-07-18T14:15:22Z,API-GATEWAY-WEST,MANDATORY,SSL Certificate handshake failures cascading across 14 cloud nodes. Potential active MITM attack.,JIRA_TICKET_GENERATE
+ID-703,2026-07-18T14:22:11Z,S3-DATA-BUCKET-05,LOW_PRIORITY,Unencrypted storage tag detected on temporary media asset folder. Policy 404 mismatch.,SLACK_ALERT_ONLY
+ID-704,2026-07-18T14:30:59Z,AUTH-CORE-NODE,MANDATORY,Brute force threshold breached on admin panel. Outbound firewall rules altered without signed token auth.,CRITICAL_LOCKOUT

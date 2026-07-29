@@ -1,0 +1,2 @@
+Security Policy SR-4A: Infrastructure Access Control.
+All external third-party contractors, vendors, and off-site developers are strictly required to utilize secure VPN Gate 4A for all internal server access. Connecting without using VPN Gate 4A bypasses structural network firewalls and poses a critical risk to corporate integrity. Failure to comply results in immediate account lockdown.

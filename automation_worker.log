@@ -1,0 +1,161 @@
+2026-07-11 16:14:34,044 [INFO] Background Ticker Engine fully initialized. Running continuously...
+2026-07-11 16:14:34,044 [INFO] Starting background feed evaluation loop...
+2026-07-11 16:14:40,461 [INFO] 
+LiteLLM completion() model= llama-3.3-70b-versatile; provider = groq
+2026-07-11 16:14:40,910 [INFO] Wrapper: Completed Call, calling success_handler
+2026-07-11 16:14:40,916 [INFO] No device provided, using cpu
+2026-07-11 16:14:42,236 [INFO] Loading SentenceTransformer model from sentence-transformers/all-MiniLM-L6-v2.
+2026-07-11 16:14:42,669 [WARNING] Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-07-11 16:14:52,523 [INFO] Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2026-07-11 16:14:52,677 [INFO] 
+LiteLLM completion() model= llama-3.3-70b-versatile; provider = groq
+2026-07-11 16:14:53,911 [INFO] Wrapper: Completed Call, calling success_handler
+2026-07-11 16:14:53,931 [INFO] 
+LiteLLM completion() model= llama-3.3-70b-versatile; provider = groq
+2026-07-11 16:14:54,439 [INFO] Wrapper: Completed Call, calling success_handler
+2026-07-11 16:14:54,445 [INFO] 
+LiteLLM completion() model= llama-3.3-70b-versatile; provider = groq
+2026-07-11 16:14:54,849 [INFO] Wrapper: Completed Call, calling success_handler
+2026-07-11 16:15:00,876 [INFO] 
+LiteLLM completion() model= llama-3.3-70b-versatile; provider = groq
+2026-07-11 16:15:01,719 [INFO] Wrapper: Completed Call, calling success_handler
+2026-07-11 16:15:05,660 [INFO] 
+LiteLLM completion() model= llama-3.3-70b-versatile; provider = groq
+2026-07-11 16:15:06,035 [INFO] Wrapper: Completed Call, calling success_handler
+2026-07-11 16:15:06,055 [INFO] 
+LiteLLM completion() model= llama-3.3-70b-versatile; provider = groq
+2026-07-11 16:15:06,508 [INFO] Wrapper: Completed Call, calling success_handler
+2026-07-11 16:15:07,327 [INFO] 
+LiteLLM completion() model= llama-3.3-70b-versatile; provider = groq
+2026-07-11 16:15:07,751 [INFO] Wrapper: Completed Call, calling success_handler
+2026-07-11 16:15:07,758 [INFO] Pipeline Execution Summary:  
+Your final answer is: 
+MANDATORY.
+2026-07-11 16:15:07,758 [INFO] Sleeping for 10 minutes until next cycle...
+2026-07-11 16:25:07,760 [INFO] Starting background feed evaluation loop...
+2026-07-11 16:25:15,326 [INFO] 
+LiteLLM completion() model= llama-3.3-70b-versatile; provider = groq
+2026-07-11 16:25:15,942 [INFO] Wrapper: Completed Call, calling success_handler
+2026-07-11 16:25:15,965 [INFO] 
+LiteLLM completion() model= llama-3.3-70b-versatile; provider = groq
+2026-07-11 16:25:16,262 [INFO] Wrapper: Completed Call, calling success_handler
+2026-07-11 16:25:16,278 [INFO] 
+LiteLLM completion() model= llama-3.3-70b-versatile; provider = groq
+2026-07-11 16:25:16,583 [INFO] Wrapper: Completed Call, calling success_handler
+2026-07-11 16:25:16,590 [INFO] 
+LiteLLM completion() model= llama-3.3-70b-versatile; provider = groq
+2026-07-11 16:25:16,904 [INFO] Wrapper: Completed Call, calling success_handler
+2026-07-11 16:25:22,926 [INFO] 
+LiteLLM completion() model= llama-3.3-70b-versatile; provider = groq
+2026-07-11 16:25:23,885 [INFO] Wrapper: Completed Call, calling success_handler
+2026-07-11 16:25:26,669 [INFO] 
+LiteLLM completion() model= llama-3.3-70b-versatile; provider = groq
+2026-07-11 16:25:27,161 [INFO] Wrapper: Completed Call, calling success_handler
+2026-07-11 16:25:27,176 [INFO] 
+LiteLLM completion() model= llama-3.3-70b-versatile; provider = groq
+2026-07-11 16:25:28,094 [INFO] Wrapper: Completed Call, calling success_handler
+2026-07-11 16:25:28,907 [INFO] 
+LiteLLM completion() model= llama-3.3-70b-versatile; provider = groq
+2026-07-11 16:25:29,253 [INFO] Wrapper: Completed Call, calling success_handler
+2026-07-11 16:25:29,260 [INFO] Pipeline Execution Summary:  
+The final answer is: 
+YES
+2026-07-11 16:25:29,260 [INFO] Sleeping for 10 minutes until next cycle...
+2026-07-11 16:35:29,261 [INFO] Starting background feed evaluation loop...
+2026-07-11 16:35:36,437 [INFO] 
+LiteLLM completion() model= llama-3.3-70b-versatile; provider = groq
+2026-07-11 16:35:37,228 [INFO] Wrapper: Completed Call, calling success_handler
+2026-07-11 16:35:37,254 [INFO] 
+LiteLLM completion() model= llama-3.3-70b-versatile; provider = groq
+2026-07-11 16:35:37,866 [INFO] Wrapper: Completed Call, calling success_handler
+2026-07-11 16:35:37,887 [INFO] 
+LiteLLM completion() model= llama-3.3-70b-versatile; provider = groq
+2026-07-11 16:35:38,099 [ERROR] Error executing listener call_llm_native_tools: litellm.RateLimitError: RateLimitError: GroqException - {"error":{"message":"Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kvz5mmxcf698bc8a73hh1raq` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99362, Requested 1635. Please try again in 14m21.408s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing","type":"tokens","code":"rate_limit_exceeded"}}
+
+2026-07-11 16:35:38,107 [ERROR] Error encountered during background cycle: litellm.RateLimitError: RateLimitError: GroqException - {"error":{"message":"Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kvz5mmxcf698bc8a73hh1raq` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99362, Requested 1635. Please try again in 14m21.408s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing","type":"tokens","code":"rate_limit_exceeded"}}
+
+2026-07-11 16:35:38,107 [INFO] Sleeping for 10 minutes until next cycle...
+2026-07-11 16:45:38,108 [INFO] Starting background feed evaluation loop...
+2026-07-11 16:45:43,796 [INFO] 
+LiteLLM completion() model= llama-3.3-70b-versatile; provider = groq
+2026-07-11 16:45:44,098 [ERROR] Error executing listener call_llm_native_tools: litellm.RateLimitError: RateLimitError: GroqException - {"error":{"message":"Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kvz5mmxcf698bc8a73hh1raq` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 98661, Requested 1532. Please try again in 2m46.752s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing","type":"tokens","code":"rate_limit_exceeded"}}
+
+2026-07-11 16:45:44,103 [ERROR] Error encountered during background cycle: litellm.RateLimitError: RateLimitError: GroqException - {"error":{"message":"Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kvz5mmxcf698bc8a73hh1raq` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 98661, Requested 1532. Please try again in 2m46.752s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing","type":"tokens","code":"rate_limit_exceeded"}}
+
+2026-07-11 16:45:44,103 [INFO] Sleeping for 10 minutes until next cycle...
+2026-07-11 16:55:44,104 [INFO] Starting background feed evaluation loop...
+2026-07-11 16:55:50,698 [INFO] 
+LiteLLM completion() model= llama-3.3-70b-versatile; provider = groq
+2026-07-11 16:55:51,090 [INFO] Wrapper: Completed Call, calling success_handler
+2026-07-11 16:55:51,118 [INFO] 
+LiteLLM completion() model= llama-3.3-70b-versatile; provider = groq
+2026-07-11 16:55:51,268 [ERROR] Error executing listener ensure_force_final_answer: litellm.RateLimitError: RateLimitError: GroqException - {"error":{"message":"Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kvz5mmxcf698bc8a73hh1raq` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99516, Requested 1537. Please try again in 15m9.791999999s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing","type":"tokens","code":"rate_limit_exceeded"}}
+
+2026-07-11 16:55:51,276 [ERROR] Error encountered during background cycle: litellm.RateLimitError: RateLimitError: GroqException - {"error":{"message":"Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kvz5mmxcf698bc8a73hh1raq` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99516, Requested 1537. Please try again in 15m9.791999999s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing","type":"tokens","code":"rate_limit_exceeded"}}
+
+2026-07-11 16:55:51,276 [INFO] Sleeping for 10 minutes until next cycle...
+2026-07-11 17:05:51,277 [INFO] Starting background feed evaluation loop...
+2026-07-11 17:06:01,378 [INFO] 
+LiteLLM completion() model= llama-3.3-70b-versatile; provider = groq
+2026-07-11 17:06:01,727 [ERROR] Error executing listener call_llm_native_tools: litellm.RateLimitError: RateLimitError: GroqException - {"error":{"message":"Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kvz5mmxcf698bc8a73hh1raq` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 98810, Requested 1622. Please try again in 6m13.248s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing","type":"tokens","code":"rate_limit_exceeded"}}
+
+2026-07-11 17:06:01,730 [ERROR] Error encountered during background cycle: litellm.RateLimitError: RateLimitError: GroqException - {"error":{"message":"Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kvz5mmxcf698bc8a73hh1raq` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 98810, Requested 1622. Please try again in 6m13.248s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing","type":"tokens","code":"rate_limit_exceeded"}}
+
+2026-07-11 17:06:01,731 [INFO] Sleeping for 10 minutes until next cycle...
+2026-07-11 17:16:01,731 [INFO] Starting background feed evaluation loop...
+2026-07-11 17:16:08,294 [INFO] 
+LiteLLM completion() model= llama-3.3-70b-versatile; provider = groq
+2026-07-11 17:16:08,948 [INFO] Wrapper: Completed Call, calling success_handler
+2026-07-11 17:16:08,977 [INFO] 
+LiteLLM completion() model= llama-3.3-70b-versatile; provider = groq
+2026-07-11 17:16:09,182 [ERROR] Error executing listener ensure_force_final_answer: litellm.RateLimitError: RateLimitError: GroqException - {"error":{"message":"Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kvz5mmxcf698bc8a73hh1raq` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99640, Requested 1512. Please try again in 16m35.328s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing","type":"tokens","code":"rate_limit_exceeded"}}
+
+2026-07-11 17:16:09,188 [ERROR] Error encountered during background cycle: litellm.RateLimitError: RateLimitError: GroqException - {"error":{"message":"Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kvz5mmxcf698bc8a73hh1raq` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99640, Requested 1512. Please try again in 16m35.328s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing","type":"tokens","code":"rate_limit_exceeded"}}
+
+2026-07-11 17:16:09,188 [INFO] Sleeping for 10 minutes until next cycle...
+2026-07-11 17:26:09,190 [INFO] Starting background feed evaluation loop...
+2026-07-11 17:26:15,264 [INFO] 
+LiteLLM completion() model= llama-3.3-70b-versatile; provider = groq
+2026-07-11 17:26:15,548 [ERROR] Error executing listener call_llm_native_tools: litellm.RateLimitError: RateLimitError: GroqException - {"error":{"message":"Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kvz5mmxcf698bc8a73hh1raq` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 98938, Requested 1559. Please try again in 7m9.407999999s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing","type":"tokens","code":"rate_limit_exceeded"}}
+
+2026-07-11 17:26:15,552 [ERROR] Error encountered during background cycle: litellm.RateLimitError: RateLimitError: GroqException - {"error":{"message":"Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kvz5mmxcf698bc8a73hh1raq` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 98938, Requested 1559. Please try again in 7m9.407999999s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing","type":"tokens","code":"rate_limit_exceeded"}}
+
+2026-07-11 17:26:15,553 [INFO] Sleeping for 10 minutes until next cycle...
+2026-07-11 17:36:15,553 [INFO] Starting background feed evaluation loop...
+2026-07-11 17:36:22,310 [INFO] 
+LiteLLM completion() model= llama-3.3-70b-versatile; provider = groq
+2026-07-11 17:36:22,989 [INFO] Wrapper: Completed Call, calling success_handler
+2026-07-11 17:36:23,018 [INFO] 
+LiteLLM completion() model= llama-3.3-70b-versatile; provider = groq
+2026-07-11 17:36:23,211 [ERROR] Error executing listener ensure_force_final_answer: litellm.RateLimitError: RateLimitError: GroqException - {"error":{"message":"Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kvz5mmxcf698bc8a73hh1raq` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 100000, Requested 1747. Please try again in 25m9.408s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing","type":"tokens","code":"rate_limit_exceeded"}}
+
+2026-07-11 17:36:23,218 [ERROR] Error encountered during background cycle: litellm.RateLimitError: RateLimitError: GroqException - {"error":{"message":"Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kvz5mmxcf698bc8a73hh1raq` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 100000, Requested 1747. Please try again in 25m9.408s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing","type":"tokens","code":"rate_limit_exceeded"}}
+
+2026-07-11 17:36:23,218 [INFO] Sleeping for 10 minutes until next cycle...
+2026-07-11 17:46:23,219 [INFO] Starting background feed evaluation loop...
+2026-07-11 17:46:34,789 [INFO] 
+LiteLLM completion() model= llama-3.3-70b-versatile; provider = groq
+2026-07-11 17:46:36,040 [ERROR] Error executing listener call_llm_native_tools: litellm.RateLimitError: RateLimitError: GroqException - {"error":{"message":"Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kvz5mmxcf698bc8a73hh1raq` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99291, Requested 1764. Please try again in 15m11.52s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing","type":"tokens","code":"rate_limit_exceeded"}}
+
+2026-07-11 17:46:36,046 [ERROR] Error encountered during background cycle: litellm.RateLimitError: RateLimitError: GroqException - {"error":{"message":"Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kvz5mmxcf698bc8a73hh1raq` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99291, Requested 1764. Please try again in 15m11.52s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing","type":"tokens","code":"rate_limit_exceeded"}}
+
+2026-07-11 17:46:36,046 [INFO] Sleeping for 10 minutes until next cycle...
+2026-07-11 17:56:36,048 [INFO] Starting background feed evaluation loop...
+2026-07-11 17:56:45,352 [INFO] 
+LiteLLM completion() model= llama-3.3-70b-versatile; provider = groq
+2026-07-11 17:56:47,347 [ERROR] Error executing listener call_llm_native_tools: litellm.RateLimitError: RateLimitError: GroqException - {"error":{"message":"Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kvz5mmxcf698bc8a73hh1raq` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 98584, Requested 1777. Please try again in 5m11.904s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing","type":"tokens","code":"rate_limit_exceeded"}}
+
+2026-07-11 17:56:47,352 [ERROR] Error encountered during background cycle: litellm.RateLimitError: RateLimitError: GroqException - {"error":{"message":"Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kvz5mmxcf698bc8a73hh1raq` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 98584, Requested 1777. Please try again in 5m11.904s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing","type":"tokens","code":"rate_limit_exceeded"}}
+
+2026-07-11 17:56:47,353 [INFO] Sleeping for 10 minutes until next cycle...
+2026-07-11 18:06:47,354 [INFO] Starting background feed evaluation loop...
+2026-07-11 18:06:57,449 [INFO] 
+LiteLLM completion() model= llama-3.3-70b-versatile; provider = groq
+2026-07-11 18:06:58,409 [INFO] Wrapper: Completed Call, calling success_handler
+2026-07-11 18:06:58,438 [INFO] 
+LiteLLM completion() model= llama-3.3-70b-versatile; provider = groq
+2026-07-11 18:06:58,726 [ERROR] Error executing listener ensure_force_final_answer: litellm.RateLimitError: RateLimitError: GroqException - {"error":{"message":"Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kvz5mmxcf698bc8a73hh1raq` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99125, Requested 1788. Please try again in 13m8.831999999s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing","type":"tokens","code":"rate_limit_exceeded"}}
+
+2026-07-11 18:06:58,733 [ERROR] Error encountered during background cycle: litellm.RateLimitError: RateLimitError: GroqException - {"error":{"message":"Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kvz5mmxcf698bc8a73hh1raq` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99125, Requested 1788. Please try again in 13m8.831999999s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing","type":"tokens","code":"rate_limit_exceeded"}}
+
+2026-07-11 18:06:58,733 [INFO] Sleeping for 10 minutes until next cycle...

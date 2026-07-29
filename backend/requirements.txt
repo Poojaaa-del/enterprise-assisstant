@@ -1,0 +1,47 @@
+﻿--extra-index-url https://download.pytorch.org/whl/cpu
+
+# Core Web & API
+fastapi
+uvicorn[standard]
+pydantic
+pydantic-settings
+python-dotenv
+python-multipart
+email-validator
+google-auth>=2.0.0
+
+# Security & Database
+pyjwt
+passlib[bcrypt]
+bcrypt==4.0.1
+sqlalchemy
+chromadb==0.5.23
+sentence-transformers
+
+# All Document Parsers
+PyMuPDF
+pypdf
+pdfplumber
+pandas
+openpyxl
+xlrd
+python-docx
+python-pptx
+beautifulsoup4
+psycopg2-binary
+
+# AI Frameworks & Cloud APIs
+crewai
+openai
+groq
+anthropic
+tiktoken
+
+# Integrations & Utilities
+jira
+requests
+httpx
+# Multi-Agent RAG additions
+rank-bm25>=0.2.2
+reportlab>=4.0.0
+
