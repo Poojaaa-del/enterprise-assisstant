@@ -27,7 +27,11 @@ export default function App() {
   const [showAccountModal, setShowAccountModal] = useState(false);
   const [userInfo, setUserInfo] = useState(() => (token ? parseJwt(token) || {} : null));
   const [ingestionComplete, setIngestionComplete] = useState(false);
-  const isVerifyEmailRoute = window.location.pathname.startsWith('/verify-email');
+  // const isVerifyEmailRoute = window.location.pathname.startsWith('/verify-email');
+  const urlParams = new URLSearchParams(window.location.search);
+  const isVerifyEmailRoute = 
+    window.location.pathname.startsWith('/verify-email') || 
+    urlParams.has('verify_token');
 
   const handleLogout = useCallback(() => {
     removeStoredToken();
