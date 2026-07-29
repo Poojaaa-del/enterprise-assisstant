@@ -480,7 +480,6 @@
 
 
 import os
-import requests
 import sqlite3
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -488,7 +487,7 @@ from typing import Optional
 
 import bcrypt
 import jwt
-import resend
+import requests
 from dotenv import load_dotenv
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
@@ -514,11 +513,9 @@ SECRET_KEY = os.environ.get("JWT_SECRET_KEY", "guardcore-super-secret-key-change
 GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID", "")
 FRONTEND_BASE_URL = os.environ.get("FRONTEND_BASE_URL", "http://localhost:5173").rstrip("/")
 
-# Resend Configuration
-RESEND_API_KEY = os.environ.get("RESEND_API_KEY", "")
-RESEND_FROM_EMAIL = os.environ.get(
-    "RESEND_FROM_EMAIL", "LogTriage AI <onboarding@resend.dev>"
-)
+# Brevo Email Configuration
+BREVO_API_KEY = os.environ.get("BREVO_API_KEY", "")
+BREVO_SENDER_EMAIL = os.environ.get("BREVO_SENDER_EMAIL", "poojapvt09@gmail.com")
 
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24  # 24 Hour Session
@@ -602,9 +599,9 @@ def create_email_verification_token(user: User) -> str:
 
 
 def send_verification_email(email: str, verification_link: str) -> None:
-    """Send verification emails for free to ANY recipient using Brevo API (No domain required)."""
-    brevo_key = os.environ.get("BREVO_API_KEY", "")
-    
+    """Send verification emails for free to ANY recipient using Brevo API."""
+    brevo_key = os.environ.get("BREVO_API_KEY", BREVO_API_KEY)
+
     if not brevo_key:
         print(
             f"\n======== [EMAIL VERIFICATION LINK (NO BREVO API KEY SET)] ========\n"
@@ -618,12 +615,12 @@ def send_verification_email(email: str, verification_link: str) -> None:
     headers = {
         "api-key": brevo_key,
         "Content-Type": "application/json",
-        "accept": "application/json"
+        "accept": "application/json",
     }
     payload = {
         "sender": {
             "name": "LogTriage AI",
-            "email": "poojapvt09@gmail.com"  # Must match your verified Brevo sender
+            "email": BREVO_SENDER_EMAIL,
         },
         "to": [{"email": email}],
         "subject": "Verify your LogTriage AI account",
@@ -643,7 +640,7 @@ def send_verification_email(email: str, verification_link: str) -> None:
             </div>
           </body>
         </html>
-        """
+        """,
     }
 
     try:
@@ -653,8 +650,9 @@ def send_verification_email(email: str, verification_link: str) -> None:
         else:
             print(f"[ERROR] Brevo failed ({response.status_code}): {response.text}")
     except Exception as e:
-        print(f"[ERROR] Brevo API call failed to {email}: {e}")
+        print(f"[ERROR] Brevo API call failed for {email}: {e}")
         print(f"[FALLBACK LINK]: {verification_link}")
+
 
 def get_current_user(
     credentials: HTTPAuthorizationCredentials = Depends(security),
@@ -773,7 +771,6 @@ def signup(
     token = create_email_verification_token(user)
     verification_link = f"{FRONTEND_BASE_URL}/verify-email?token={token}"
 
-    # Offload Resend API call to background task (Returns signup response instantly!)
     background_tasks.add_task(send_verification_email, user.email, verification_link)
 
     return user
