@@ -67,5 +67,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # 3. Copy application code
 COPY . /app
 
-# Run Uvicorn listening dynamically on Render's assigned $PORT
-CMD ["sh", "-c", "uvicorn main:app --host 0.0.0.0 --port ${PORT:-8000}"]
+# Expose Hugging Face default port
+EXPOSE 8080
+
+CMD ["sh", "-c", "uvicorn main:app --host 0.0.0.0 --port ${PORT:-8080}"]
