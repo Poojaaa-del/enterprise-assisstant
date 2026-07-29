@@ -306,8 +306,16 @@ class IncidentEscalateRequest(BaseModel):
     severity: Optional[str] = "HIGH"
 
 planner = PlannerAgent()
-retriever = RetrievalAgent()
+# retriever = RetrievalAgent()
 groq_client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
+
+retriever = None
+
+def get_retriever():
+    global retriever
+    if retriever is None:
+        retriever = RetrievalAgent()
+    return retriever
 
 # Protected Endpoint: Requires Valid Bearer Token
 @router.post("/triage")
@@ -324,7 +332,7 @@ async def process_incident_stream(payload: TriageRequest, current_user=Depends(g
         planner_analysis = planner.analyze_incident(combined_text)
         
         # 2. Extract Vector Knowledge using the structured analysis dictionary
-        context, citation = retriever.extract_compliance_context(planner_analysis)
+        context, citation = get_retriever().extract_compliance_context(planner_analysis)
         
         # 3. Read the urgency metrics directly out of the Planner's structural logic
         severity_hint = planner_analysis.get("severity_hint", "LOW").upper()
