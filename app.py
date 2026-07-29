@@ -150,7 +150,7 @@ def setup_knowledge_base():
     splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=100)
     chunks = splitter.split_documents(documents)
 
-    embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+    embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
     persist_directory = os.path.join(os.path.dirname(__file__), "chroma_db")
 
     knowledge_store = Chroma.from_documents(
