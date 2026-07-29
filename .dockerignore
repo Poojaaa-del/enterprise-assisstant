@@ -10,3 +10,9 @@ __pycache__/
 *.pyd
 .env
 triage.db
+
+*.sqlite3
+chroma/
+chroma_db/
+.venv/
+.git/
