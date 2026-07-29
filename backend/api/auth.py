@@ -480,6 +480,7 @@
 
 
 import os
+import requests
 import sqlite3
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -601,49 +602,59 @@ def create_email_verification_token(user: User) -> str:
 
 
 def send_verification_email(email: str, verification_link: str) -> None:
-    """Send a verification email via Resend HTTP API (Port 443 - Never blocked by cloud providers)."""
-    if not RESEND_API_KEY:
+    """Send verification emails for free to ANY recipient using Brevo API (No domain required)."""
+    brevo_key = os.environ.get("BREVO_API_KEY", "")
+    
+    if not brevo_key:
         print(
-            f"\n======== [EMAIL VERIFICATION LINK (NO RESEND API KEY SET)] ========\n"
+            f"\n======== [EMAIL VERIFICATION LINK (NO BREVO API KEY SET)] ========\n"
             f"To: {email}\n"
             f"Link: {verification_link}\n"
             f"===================================================================\n"
         )
         return
 
-    resend.api_key = RESEND_API_KEY
-
-    html_content = f"""
-    <html>
-      <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; background-color: #f9fafb; padding: 20px;">
-        <div style="max-width: 550px; margin: 0 auto; background: #ffffff; padding: 30px; border-radius: 8px; border: 1px solid #e5e7eb;">
-          <h2 style="color: #0284c7; margin-top: 0;">Welcome to LogTriage AI</h2>
-          <p>Please verify your email address to activate your account:</p>
-          <p style="margin: 25px 0;">
-            <a href="{verification_link}" style="background-color: #0284c7; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">Verify Email Address</a>
-          </p>
-          <p style="font-size: 0.85em; color: #6b7280;">Or copy and paste this link into your browser:<br>
-          <a href="{verification_link}" style="color: #0284c7;">{verification_link}</a></p>
-          <hr style="border: none; border-top: 1px solid #e5e7eb; margin-top: 30px;">
-          <p style="font-size: 0.8em; color: #9ca3af; margin-bottom: 0;">This link will expire in 24 hours.</p>
-        </div>
-      </body>
-    </html>
-    """
+    url = "https://api.brevo.com/v3/smtp/email"
+    headers = {
+        "api-key": brevo_key,
+        "Content-Type": "application/json",
+        "accept": "application/json"
+    }
+    payload = {
+        "sender": {
+            "name": "LogTriage AI",
+            "email": "poojapvt09@gmail.com"  # Must match your verified Brevo sender
+        },
+        "to": [{"email": email}],
+        "subject": "Verify your LogTriage AI account",
+        "htmlContent": f"""
+        <html>
+          <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; background-color: #f9fafb; padding: 20px;">
+            <div style="max-width: 550px; margin: 0 auto; background: #ffffff; padding: 30px; border-radius: 8px; border: 1px solid #e5e7eb;">
+              <h2 style="color: #0284c7; margin-top: 0;">Welcome to LogTriage AI</h2>
+              <p>Please verify your email address to activate your account:</p>
+              <p style="margin: 25px 0;">
+                <a href="{verification_link}" style="background-color: #0284c7; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">Verify Email Address</a>
+              </p>
+              <p style="font-size: 0.85em; color: #6b7280;">Or copy and paste this link into your browser:<br>
+              <a href="{verification_link}" style="color: #0284c7;">{verification_link}</a></p>
+              <hr style="border: none; border-top: 1px solid #e5e7eb; margin-top: 30px;">
+              <p style="font-size: 0.8em; color: #9ca3af; margin-bottom: 0;">This link will expire in 24 hours.</p>
+            </div>
+          </body>
+        </html>
+        """
+    }
 
     try:
-        params: resend.Emails.SendParams = {
-            "from": RESEND_FROM_EMAIL,
-            "to": [email],
-            "subject": "Verify your LogTriage AI account",
-            "html": html_content,
-        }
-        response = resend.Emails.send(params)
-        print(f"[SUCCESS] Verification email delivered via Resend to {email}: {response}")
+        response = requests.post(url, json=payload, headers=headers, timeout=5)
+        if response.status_code in [200, 201]:
+            print(f"[SUCCESS] Email delivered via Brevo to {email}")
+        else:
+            print(f"[ERROR] Brevo failed ({response.status_code}): {response.text}")
     except Exception as e:
-        print(f"[ERROR] [Email Verification] Resend API failed for {email}: {e}")
-        print(f"[FALLBACK LINK FOR MANUAL VERIFICATION]: {verification_link}")
-
+        print(f"[ERROR] Brevo API call failed to {email}: {e}")
+        print(f"[FALLBACK LINK]: {verification_link}")
 
 def get_current_user(
     credentials: HTTPAuthorizationCredentials = Depends(security),
