@@ -12,9 +12,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-COPY requirements.txt .
+# 1. Upgrade pip and force lightweight CPU-only PyTorch first (Prevents OOM / Status 137)
 RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir --default-timeout=1000 --retries 10 --user -r requirements.txt
+    pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu
+
+# 2. Install remaining requirements
+COPY requirements.txt .
+RUN pip install --no-cache-dir --default-timeout=1000 --retries 10 --user -r requirements.txt
 
 # ── Stage 2: Production Runtime ──
 FROM python:3.11-slim AS runner
@@ -22,6 +26,7 @@ FROM python:3.11-slim AS runner
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 ENV PATH=/root/.local/bin:$PATH
+ENV PYTHONPATH=/root/.local/lib/python3.11/site-packages:$PYTHONPATH
 
 WORKDIR /app
 
@@ -32,9 +37,5 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 COPY --from=builder /root/.local /root/.local
 COPY . /app
 
-EXPOSE 8000
-
-HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
-    CMD curl -f http://localhost:8000/ || exit 1
-
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Run Uvicorn listening dynamically on Render's $PORT
+CMD ["sh", "-c", "uvicorn main:app --host 0.0.0.0 --port ${PORT:-8000}"]
