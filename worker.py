@@ -18,6 +18,7 @@ from langchain_community.document_loaders import TextLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_chroma import Chroma
 from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_community.embeddings import HuggingFaceInferenceAPIEmbeddings
 from tools import create_jira_ticket
 
 # Setup logging to see exactly what the worker is doing in the background
@@ -132,7 +133,12 @@ def setup_knowledge_base():
     
     knowledge_store = Chroma.from_documents(
         documents=chunks,
-        embedding=HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2"),
+        #embedding=HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2"),
+        # ✅ THIS CALLS THE HUGGING FACE FREE CLOUD API (USES ~0 MB RAM):
+        embedding = HuggingFaceInferenceAPIEmbeddings(
+            api_key=os.environ.get("HF_TOKEN"),
+            model_name="sentence-transformers/all-MiniLM-L6-v2"
+        ),
         persist_directory=os.path.join(os.path.dirname(__file__), "chroma_db"),
         collection_name="company_policy"
     )

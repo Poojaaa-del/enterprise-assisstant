@@ -12,8 +12,9 @@ chroma_client = chromadb.PersistentClient(path=CHROMA_DATA_PATH)
 #    while knowledge.py / retrieval.py used SentenceTransformer + "guard_core_nodes".
 #    That mismatch caused ingest_document() to write to a dead collection that
 #    RetrievalAgent never queried, producing 0% RAG confidence on every query.
-embedding_func = embedding_functions.SentenceTransformerEmbeddingFunction(
-    model_name="all-MiniLM-L6-v2"
+embedding_func = embedding_functions.HuggingFaceEmbeddingFunction(
+    api_key=os.environ.get("HF_TOKEN"),
+    model_name="sentence-transformers/all-MiniLM-L6-v2"
 )
 
 # 3. Secure or instantiate the shared core collection.
