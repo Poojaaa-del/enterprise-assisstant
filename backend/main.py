@@ -1,6 +1,8 @@
 import os
 import sys
-
+import bcrypt
+if not hasattr(bcrypt, "__about__"):
+    bcrypt.__about__ = type("about", (), {"__version__": getattr(bcrypt, "__version__", "4.0.1")})
 # Force UTF-8 stdout/stderr on Windows to prevent UnicodeEncodeError from any
 # remaining non-ASCII characters in log messages (cp1252 console default).
 if sys.stdout and hasattr(sys.stdout, "reconfigure"):
