@@ -488,6 +488,7 @@ from typing import Optional
 
 import bcrypt
 import jwt
+import resend
 from dotenv import load_dotenv
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
@@ -520,6 +521,7 @@ SMTP_FROM_EMAIL = os.environ.get("SMTP_FROM_EMAIL") or SMTP_USERNAME or "no-repl
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24  # 24 Hour Session
 EMAIL_VERIFICATION_TOKEN_EXPIRE_HOURS = 24
+RESEND_API_KEY = os.environ.get("RESEND_API_KEY", "")
 
 
 # --- Pydantic Request/Response Schemas ---
@@ -599,76 +601,39 @@ def create_email_verification_token(user: User) -> str:
 
 
 def send_verification_email(email: str, verification_link: str) -> None:
-    """Send a verification email with a 5-second socket timeout to prevent blocking."""
-    clean_password = (SMTP_PASSWORD or "").replace(" ", "").strip()
-    clean_username = (SMTP_USERNAME or "").strip()
-
-    # Fallback to terminal ONLY if SMTP password or username is missing
-    if not SMTP_HOST or not clean_password or not clean_username:
+    """Send a verification email via Resend HTTP API (Never blocked by cloud hosts)."""
+    if not RESEND_API_KEY:
         print(
-            f"\n======== [EMAIL VERIFICATION LINK (NO SMTP)] ========\n"
+            f"\n======== [EMAIL VERIFICATION LINK (NO RESEND API KEY)] ========\n"
             f"To: {email}\n"
             f"Link: {verification_link}\n"
-            f"=====================================================\n"
+            f"===============================================================\n"
         )
         return
 
-    message = EmailMessage()
-    message["Subject"] = "Verify your LogTriage AI account"
+    resend.api_key = RESEND_API_KEY
 
-    sender_address = (
-        SMTP_FROM_EMAIL
-        if "@" in SMTP_FROM_EMAIL and "localhost" not in SMTP_FROM_EMAIL
-        else clean_username
-    )
-    message["From"] = f"LogTriage AI <{sender_address}>"
-    message["To"] = email
-
-    # Plain text fallback
-    message.set_content(
-        f"Welcome to LogTriage AI.\n\n"
-        f"Verify your account by opening this link:\n{verification_link}\n\n"
-        f"This link expires in 24 hours."
-    )
-
-    # Rich HTML content with button
-    html_content = f"""
-    <html>
-      <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; background-color: #f9fafb; padding: 20px;">
-        <div style="max-width: 550px; margin: 0 auto; background: #ffffff; padding: 30px; border-radius: 8px; border: 1px solid #e5e7eb;">
-          <h2 style="color: #0284c7; margin-top: 0;">Welcome to LogTriage AI</h2>
-          <p>Please verify your email address to activate your account:</p>
-          <p style="margin: 25px 0;">
-            <a href="{verification_link}" style="background-color: #0284c7; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">Verify Email Address</a>
-          </p>
-          <p style="font-size: 0.85em; color: #6b7280;">Or copy and paste this link into your browser:<br>
-          <a href="{verification_link}" style="color: #0284c7;">{verification_link}</a></p>
-          <hr style="border: none; border-top: 1px solid #e5e7eb; margin-top: 30px;">
-          <p style="font-size: 0.8em; color: #9ca3af; margin-bottom: 0;">This link will expire in 24 hours.</p>
-        </div>
-      </body>
-    </html>
-    """
-    message.add_alternative(html_content, subtype="html")
-
-    # Send via SMTP with a strict 5-second connection timeout
     try:
-        if SMTP_PORT == 465:
-            with smtplib.SMTP_SSL(SMTP_HOST, 465, timeout=5.0) as smtp:
-                smtp.login(clean_username, clean_password)
-                smtp.send_message(message)
-        else:
-            with smtplib.SMTP(SMTP_HOST, SMTP_PORT, timeout=5.0) as smtp:
-                smtp.starttls()
-                smtp.login(clean_username, clean_password)
-                smtp.send_message(message)
-
-        print(f"[SUCCESS] Real verification email delivered to {email}")
+        response = resend.Emails.send({
+            "from": "LogTriage AI <onboarding@resend.dev>", # Use onboarding@resend.dev for testing
+            "to": email,
+            "subject": "Verify your LogTriage AI account",
+            "html": f"""
+            <html>
+              <body style="font-family: Arial, sans-serif; padding: 20px;">
+                <h2>Welcome to LogTriage AI</h2>
+                <p>Please verify your email address to activate your account:</p>
+                <p><a href="{verification_link}" style="background: #0284c7; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Verify Email</a></p>
+                <p>Or copy this link: {verification_link}</p>
+              </body>
+            </html>
+            """
+        })
+        print(f"[SUCCESS] Email delivered via Resend API to {email}: {response}")
     except Exception as e:
-        print(f"[WARNING] [Email Verification] SMTP connection failed: {e}")
-        print(f"[FALLBACK LINK FOR MANUAL VERIFICATION]: {verification_link}")
-
-
+        print(f"[ERROR] Resend API failed to send email to {email}: {e}")
+        print(f"[FALLBACK LINK]: {verification_link}")
+        
 def get_current_user(
     credentials: HTTPAuthorizationCredentials = Depends(security),
     db: Session = Depends(get_db),
