@@ -22,3 +22,8 @@ build/
 credentials.json
 credentials.json.json
 *.json.json
+
+# Chroma Vector DB
+chroma/
+chroma_db/
+*.sqlite3
