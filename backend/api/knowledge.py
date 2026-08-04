@@ -127,7 +127,8 @@ _init_db_tables()
 try:
     embedding_engine = embedding_functions.HuggingFaceEmbeddingFunction(
     api_key=os.environ.get("HF_TOKEN"),
-    model_name="sentence-transformers/all-MiniLM-L6-v2"
+    model_name="sentence-transformers/all-MiniLM-L6-v2",
+    api_url="https://api-inference.huggingface.co/pipeline/feature-extraction/sentence-transformers/all-MiniLM-L6-v2"
 )
     chroma_client = chromadb.PersistentClient(path=CHROMA_DIR)
     collection    = chroma_client.get_or_create_collection(
