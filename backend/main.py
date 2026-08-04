@@ -1,4 +1,6 @@
 import os
+# Disable ChromaDB anonymized telemetry very early to avoid Chroma background telemetry and reduce resource usage
+os.environ["ANONYMIZED_TELEMETRY"] = "False"
 import sys
 import bcrypt
 if not hasattr(bcrypt, "__about__"):

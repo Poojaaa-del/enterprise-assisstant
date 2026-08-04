@@ -295,6 +295,14 @@ class PlannerAgent:
                 lines = raw.splitlines()
                 raw   = "\n".join(lines[1:-1]).strip()
             res = json.loads(raw)
+            # Enforce single sub-query to avoid multi-query embedding / search memory spikes
+            subs = res.get("sub_queries") if isinstance(res, dict) else None
+            if not isinstance(subs, list) or len(subs) == 0:
+                # Fallback to using the fully resolved single query
+                res["sub_queries"] = [resolved_query]
+            else:
+                # Keep only the first sub-query to prevent parallel expansion
+                res["sub_queries"] = [subs[0]] if len(subs) >= 1 else [resolved_query]
             res["resolved_query"] = resolved_query
             return res
 

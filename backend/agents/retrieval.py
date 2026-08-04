@@ -10,6 +10,7 @@ from typing import List, Optional
 import chromadb
 from chromadb.utils import embedding_functions
 from rank_bm25 import BM25Okapi
+import gc  # explicit garbage-collection hints for memory-constrained environments
 
 
 class RetrievalAgent:
@@ -161,5 +162,27 @@ class RetrievalAgent:
                     "distance": round(distances[idx], 6) if idx < len(distances) else None,
                 }
             )
+
+        # Cleanup bulky intermediates to reduce peak memory usage on constrained hosts
+        try:
+            # Delete large refs that are no longer needed
+            del vec_results
+            del docs
+            del metas
+            del distances
+            del tokenised_docs
+            del bm25
+            del bm25_scores
+            del vec_ranks
+            del bm25_ranks
+            del rrf_scores
+        except Exception:
+            # Ignore missing names in edge cases
+            pass
+        # Suggest immediate collection to the interpreter
+        try:
+            gc.collect()
+        except Exception:
+            pass
 
         return results
