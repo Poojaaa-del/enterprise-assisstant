@@ -137,7 +137,8 @@ def setup_knowledge_base():
         # ✅ THIS CALLS THE HUGGING FACE FREE CLOUD API (USES ~0 MB RAM):
         embedding = HuggingFaceInferenceAPIEmbeddings(
             api_key=os.environ.get("HF_TOKEN"),
-            model_name="sentence-transformers/all-MiniLM-L6-v2"
+            model_name="sentence-transformers/all-MiniLM-L6-v2",
+            api_url="https://api-inference.huggingface.co/pipeline/feature-extraction/sentence-transformers/all-MiniLM-L6-v2"
         ),
         persist_directory=os.path.join(os.path.dirname(__file__), "chroma_db"),
         collection_name="company_policy"
