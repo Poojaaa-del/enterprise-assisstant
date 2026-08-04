@@ -125,14 +125,10 @@ _init_db_tables()
 
 # ── ChromaDB client (shared, explicit embedding function) ──────────────────────
 try:
-    embedding_engine = embedding_functions.HuggingFaceEmbeddingFunction(
-    api_key=os.environ.get("HF_TOKEN"),
-    model_name="sentence-transformers/all-MiniLM-L6-v2",
-    api_url="https://api-inference.huggingface.co/pipeline/feature-extraction/sentence-transformers/all-MiniLM-L6-v2"
-)
+    embedding_engine = embedding_functions.DefaultEmbeddingFunction()
     chroma_client = chromadb.PersistentClient(path=CHROMA_DIR)
     collection    = chroma_client.get_or_create_collection(
-        name="guard_core_nodes",
+        name="compliance_vectors",
         embedding_function=embedding_engine,
     )
 except Exception as _chroma_init_err:
@@ -198,7 +194,7 @@ def process_and_vectorize_file(filename: str, file_path: str, user_id: int, perm
             meta = chunk["metadata"]
             meta["source"] = filename
             meta["filename"] = filename
-            meta["user_id"] = user_id
+            meta["user_id"] = str(user_id)
             meta["permitted_role"] = permitted_role
             metadatas.append(meta)
         ids = [f"user_{user_id}_{filename}_chunk_{i}" for i in range(len(parsed_chunks))]

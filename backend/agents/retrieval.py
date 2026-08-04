@@ -17,13 +17,10 @@ class RetrievalAgent:
         BASE_DIR   = os.path.dirname(os.path.dirname(__file__))
         CHROMA_DIR = os.path.join(BASE_DIR, "chroma_db")
 
-        self.embedding_engine = embedding_functions.HuggingFaceEmbeddingFunction(
-        api_key=os.environ.get("HF_TOKEN"),
-        model_name="sentence-transformers/all-MiniLM-L6-v2"
-        )
+        self.embedding_engine = embedding_functions.DefaultEmbeddingFunction()
         self.chroma_client = chromadb.PersistentClient(path=CHROMA_DIR)
         self.collection    = self.chroma_client.get_or_create_collection(
-            name="guard_core_nodes",
+            name="compliance_vectors",
             embedding_function=self.embedding_engine,
         )
 
