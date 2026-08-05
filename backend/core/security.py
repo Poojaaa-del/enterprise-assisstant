@@ -4,7 +4,8 @@ from typing import Optional
 import jwt
 from passlib.context import CryptContext
 
-SECRET_KEY = os.getenv("JWT_SECRET_KEY", "SUPER_SECRET_KEY_CHANGE_IN_PRODUCTION_987654321")
+# IMPORTANT: Do NOT hardcode secrets. Read from env in production. Fall back to empty string for safety during local dev.
+SECRET_KEY = os.getenv("JWT_SECRET_KEY", "")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24  # 24 Hours
 

@@ -1,6 +1,8 @@
 # Environment files (NEVER PUSH SECRETS)
 .env
 *.env
+.env.local
+.env.*.local
 backend/.env
 frontend/.env
 
@@ -11,6 +13,7 @@ __pycache__/
 venv/
 .venv/
 triage.db
+*.db
 
 # Node / React files
 node_modules/
@@ -27,3 +30,5 @@ credentials.json.json
 chroma/
 chroma_db/
 *.sqlite3
+# Log files
+*.log
