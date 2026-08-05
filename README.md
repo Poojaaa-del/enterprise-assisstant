@@ -99,46 +99,33 @@ Create an `.env` file in the repository root or backend folder and set the follo
 - VITE_API_URL=http://localhost:8000
 - MAX_SUB_QUERIES=1
 
-Notes:
-- Never commit real secrets or API keys. Use environment variables or a secrets manager in production.
-- MAX_SUB_QUERIES controls planner decomposition (set to 1 to avoid memory spikes on constrained hosts).
-
-
-## Security & Pre-Flight Audit (Summary)
-The repository was scanned for common pitfalls before public release:
-
-1. .gitignore checks
-   - Confirmed patterns exist to ignore local environment and build artifacts. Recommended entries (and currently present) include:
-     - `.env`, `*.env`, `backend/.env`, `frontend/.env`, `.env.local`, `.env.*.local` (if you use them locally)
-     - `node_modules/`, `frontend/node_modules/`, `dist/`, `build/`
-     - `chroma/`, `chroma_db/`, `*.sqlite3`, `*.db`, `triage.db`
-     - `__pycache__/`, `*.pyc`
-
-2. Hardcoded secrets scan
-   - All code files were scanned for obvious hardcoded API keys (patterns like `sk-`, `gsk_`, `AIza`, `AKIA`). No active production keys were found in tracked source files. A `.env.production.template` contains placeholder values — this is intended and safe.
-   - A few log files may contain provider identifiers or org ids in logs; these are not secret credentials but should be excluded from public repos if they contain sensitive telemetry.
-
-3. Recommendations before publishing
-   - Ensure `.env` and any `.pem`, `.p12`, or credentials JSON files are NOT committed. Keep them in the environment or a secrets manager.
-   - Replace `.env.production.template` placeholder keys with environment variables at deploy time.
-   - Remove or rotate any real keys that may have been used during development and accidentally leaked.
-   - Consider adding a pre-commit hook (e.g., detect-secrets or git-secrets) to avoid committing tokens.
-   - Add a SECURITY.md with disclosure and reporting guidelines for your project.
-
 
 ## Contributing
 Contributions are welcome. Please open issues and PRs for feature work, bugfixes, and documentation improvements. When contributing, avoid committing secrets and ensure linting/tests pass.
 
 
 ## License
-Specify your license here (e.g., MIT). Replace this section with an appropriate license file.
+MIT License
+
+Copyright (c) 2026 Pooja Kumari
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 
 
 ---
-
-If you'd like, I can:
-- Commit README.md to the repo and add a short commit message.
-- Add the recommended `.gitignore` improvements automatically.
-- Run another secret-scan pass and produce a short report of any files that contain high-entropy strings that look like secrets.
-
-Tell me which follow-ups to run next.
